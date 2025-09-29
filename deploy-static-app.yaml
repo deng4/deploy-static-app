@@ -1,0 +1,22 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  name: MainPool
+
+parameters:
+  - name: template_branch
+    default: main
+
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: app-templates
+      ref: ${{ parameters.template_branch }}
+
+stages:
+  - template: ./stages/deploy-static-app.yaml@templates
